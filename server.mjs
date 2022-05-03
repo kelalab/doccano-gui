@@ -39,7 +39,7 @@ const logger = log({ level: LOG_LEVELS.DEBUG });
 let unusedport = port;
 
 //const data = readCSV();
-const password = 'salasana';
+const password = process.env.DATA_PWD || 'salasana';
 const data = readZip(password);
 let groupedData;
 
