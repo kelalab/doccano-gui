@@ -1,0 +1,3 @@
+{
+  "ignore": ["doccano-mini-gui/*", "Dockerfile"]
+}

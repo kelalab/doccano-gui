@@ -1,0 +1,5 @@
+node_modules
+doccano-mini-gui/node_modules
+static
+*.csv
+*.zip
