@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/doccano-mini-gui/node_modules
+/doccano-mini-gui/build
 /.pnp
 .pnp.js
 /static
