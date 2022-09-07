@@ -10,6 +10,7 @@ import FormData from 'form-data';
 import setCookie from 'set-cookie-parser';
 import jsdom from 'jsdom';
 import { extractCookies } from './util.js';
+import { response } from 'express';
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
@@ -189,6 +190,7 @@ export const removeRolemapping = async (userIds, projectId, token) => {
  * @returns
  */
 export const projects = async (token, projectId = null) => {
+  console.log('projects', token, projectId);
   return doGet(
     `${DOCCANO_API_URL}/projects${projectId ? `/${projectId}` : ''}`,
     token,
@@ -266,6 +268,7 @@ export const deleteLabel = async (label, projectId, token) => {
  * @returns
  */
 export const auth = async (username, password) => {
+  console.log(`auth: ${username} ${password}`);
   const options = {
     method: 'POST',
     headers: {
@@ -610,22 +613,27 @@ const doPost = async (
   if (new URL(url).protocol === 'https') {
     options.agent = agent;
   }
-  const response = await fetch(url, options);
-  console.log('redirected', response.redirected);
-  console.log('post status', response.status);
-  if (response.status === 302) {
-    console.warn('redirect response, maybe should follow?');
-    const cks = extractCookies(response.headers.raw()['set-cookie']);
-    console.log(cks);
-  }
-  if (response.status === 403) {
-    console.log(response);
-  }
-  const responseType = response.headers.get('content-type');
-  if (responseType === 'application/json') {
-    return response.json();
-  } else if (responseType.match(/text\/(plain|html)*/)) {
-    return response.text();
+  try {
+    const response = await fetch(url, options);
+    console.log('redirected', response.redirected);
+    console.log('post status', response.status);
+    if (response.status === 302) {
+      console.warn('redirect response, maybe should follow?');
+      const cks = extractCookies(response.headers.raw()['set-cookie']);
+      console.log(cks);
+    }
+    if (response.status === 403) {
+      console.log(response);
+    }
+    const responseType = response.headers.get('content-type');
+    if (responseType === 'application/json') {
+      return response.json();
+    } else if (responseType.match(/text\/(plain|html)*/)) {
+      return response.text();
+    }
+  } catch (error) {
+    console.warn('request failed');
+    return null;
   }
   return null;
 };
@@ -735,17 +743,23 @@ const doGet = async (
   if (new URL(url).protocol === 'https') {
     options.agent = agent;
   }
-  const response = await fetch(url, options);
-  if (response.headers.get('content-type').match(/text\/(plain|html)*/)) {
-    return response.text();
-  }
+  try {
+    const response = await fetch(url, options);
+    if (response.headers.get('content-type').match(/text\/(plain|html)*/)) {
+      return response.text();
+    }
 
-  if (response.headers.get('content-type').match(/application\/zip*/)) {
-    console.log('response is a zip file, zip parsing is not yet implemented');
-    return { status: 'complete' };
-  }
+    if (response.headers.get('content-type').match(/application\/zip*/)) {
+      console.log('response is a zip file, zip parsing is not yet implemented');
+      return { status: 'complete' };
+    }
 
-  return response.json();
+    return response.json();
+  } catch (error) {
+    return response
+      .status(500)
+      .json({ status: 'error', message: 'server error' });
+  }
 };
 /**
  *

@@ -1,4 +1,4 @@
-import { Box, Button, Grommet, Keyboard, grommet } from 'grommet';
+import { Box, Grommet, Keyboard, grommet } from 'grommet';
 import { useEffect, useState } from 'react';
 import './App.css';
 import LabelingView from './components/LabelingView';
@@ -17,6 +17,7 @@ import TopBar from './components/TopBar';
 import {
   setGuideLine,
   setLabeling,
+  setLanguage,
   updateCurrent,
 } from './features/data/stateslice';
 import styled, { css } from 'styled-components';
@@ -25,6 +26,7 @@ import { deepMerge } from 'grommet/utils';
 import { setIsDirty } from './features/data/experienceslice';
 import Login from './components/Login';
 import SelectProject from './components/SelectProject';
+import { useTranslation } from 'react-i18next';
 
 function App() {
   // # of current message to label
@@ -40,6 +42,8 @@ function App() {
   const data = useSelector((state) => state.data.value);
   const loggedIn = useSelector((state) => state.state.value).loggedIn;
   const guideLine = useSelector((state) => state.state.value).guideLine;
+  const language = useSelector((state) => state.state.value).language;
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -81,6 +85,11 @@ function App() {
   };
 
   let currentData = null;
+
+  useEffect(() => {
+    console.log('language', i18n.language);
+    dispatch(setLanguage(i18n.language));
+  }, [i18n.language]);
 
   useEffect(() => {
     const getData = async () => {
@@ -131,7 +140,9 @@ function App() {
           parsed_guideline[current_section][key] = '';
           current_key = key;
         } else {
-          parsed_guideline[current_section][current_key] = line;
+          if (current_section && current_key) {
+            parsed_guideline[current_section][current_key] = line;
+          }
         }
       });
       console.log('guideLine', gdl);
@@ -301,15 +312,6 @@ function App() {
                         commandsPos={commandsPos}
                       />
                     </Box>
-                    {/*isLastSentence(currentData, currentSentence) &&
-                      labeling && (
-                        <Button
-                          primary
-                          margin="auto"
-                          label="Paina lopettaaksesi luokittelu"
-                          onClick={() => _setLabeling(false)}
-                        ></Button>
-                      )*/}
                   </Box>
                   <Commands
                     position={commandsPos}
@@ -323,7 +325,7 @@ function App() {
                     cmdRows={2}
                     commands={[
                       {
-                        label: 'Edellinen lause',
+                        label: t('prevSentence'),
                         onClick: previousSentence,
                         disabled: !labeling,
                         icon: (
@@ -334,7 +336,7 @@ function App() {
                         row: 0,
                       },
                       {
-                        label: 'Edellinen viesti',
+                        label: t('prevMsg'),
                         onClick: prev,
                         icon: (
                           <TurnedBox rotate={-180}>
@@ -344,7 +346,7 @@ function App() {
                         row: 1,
                       },
                       {
-                        label: 'Seuraava lause',
+                        label: t('nextSentence'),
                         onClick: nextSentence,
                         disabled: !labeling,
                         icon: (
@@ -355,7 +357,7 @@ function App() {
                         row: 1,
                       },
                       {
-                        label: 'Seuraava viesti',
+                        label: t('nextMsg'),
                         onClick: next,
                         icon: (
                           <TurnedBox>

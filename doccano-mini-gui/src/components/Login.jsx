@@ -8,6 +8,7 @@ import {
   Text,
 } from 'grommet';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn, setUserId } from '../features/data/stateslice';
 import { get_user, login } from '../util';
@@ -16,6 +17,7 @@ const Login = () => {
   const [value, setValue] = React.useState({});
   const [loginerror, setLoginerror] = React.useState(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const log_in = async (credentials) => {
     setLoginerror(false);
@@ -45,11 +47,11 @@ const Login = () => {
         pad="medium"
       >
         <Heading level={1} color="brand">
-          Kirjaudu sisään
+          {t('loginTitle')}
         </Heading>
         {loginerror && (
           <Box>
-            <Text color="error">Kirjautuminen epäonnistui</Text>
+            <Text color="error">{t('loginFailed')}</Text>
           </Box>
         )}
         <Form
@@ -60,13 +62,13 @@ const Login = () => {
             log_in(value);
           }}
         >
-          <FormField label="Käyttäjänimi">
+          <FormField label={t('username')}>
             <TextInput name="name"></TextInput>
           </FormField>
-          <FormField label="salasana">
+          <FormField label={t('password')}>
             <TextInput name="password" type={'password'}></TextInput>
           </FormField>
-          <Button type="submit" primary label="Kirjaudu"></Button>
+          <Button type="submit" primary label={t('login')}></Button>
         </Form>
       </Box>
     </Box>

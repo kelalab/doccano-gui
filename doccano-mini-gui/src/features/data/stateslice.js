@@ -8,6 +8,7 @@ const initialState = {
     projectId: -1,
     loggedIn: false,
     guideLine: {},
+    language: 'en',
   },
 };
 
@@ -36,6 +37,9 @@ export const stateSlice = createSlice({
     setGuideLine: (state, action) => {
       state.value.guideLine = action.payload;
     },
+    setLanguage: (state, action) => {
+      state.value.language = action.payload;
+    },
   },
 });
 
@@ -46,6 +50,7 @@ export const {
   setProjectId,
   setLoggedIn,
   setGuideLine,
+  setLanguage,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

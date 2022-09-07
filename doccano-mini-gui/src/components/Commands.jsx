@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Heading, Text } from 'grommet';
 import { Checkmark } from 'grommet-icons';
 import SquareButton from './SquareButton';
+import { useTranslation } from 'react-i18next';
 
 const Commands = ({
   labels,
@@ -16,6 +17,8 @@ const Commands = ({
   guideLine,
 }) => {
   const bottom = position === 'bottom';
+  const { t } = useTranslation();
+
   let labelTips = [];
   if (guideLine && guideLine.Luokat) {
     labelTips = guideLine.Luokat;
@@ -101,7 +104,7 @@ const Commands = ({
       )}
       <Box fill="horizontal" align="center">
         <Heading level={4} margin="medium">
-          Navigaatio
+          {t('navigation')}
         </Heading>
         <Box
           direction={bottom ? 'row' : 'column'}

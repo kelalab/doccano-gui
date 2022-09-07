@@ -1,0 +1,21 @@
+{
+  "nextSentence": "Seuraava lause",
+  "prevSentence": "Edellinen lause",
+  "nextMsg": "Seuraava viesti",
+  "prevMsg": "Edellinen viesti",
+  "doLabel": "Luokittele",
+  "username": "käyttäjänimi",
+  "password": "salasana",
+  "loginTitle": "Kirjaudu sisään",
+  "login": "Kirjaudu",
+  "logout": "Kirjaudu ulos",
+  "loginFailed": "Kirjautuminen epäonnistui",
+  "navigation": "Navigaatio",
+  "level": "Taso",
+  "chooseProject": "Valitse projekti",
+  "select": "Valitse",
+  "yes": "Kyllä",
+  "no": "Ei",
+  "cancel": "Peruuta",
+  "nonMemberInfo": "Vaikuttaa, että et ole vielä kyseisen projektin jäsen. Haluatko pyytää lisäystä?"
+}

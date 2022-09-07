@@ -1,5 +1,6 @@
 import { Box, Meter, Text } from 'grommet';
 import React, { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 import { setExp } from '../features/data/experienceslice';
@@ -11,6 +12,7 @@ const Experience = () => {
   const dispatch = useDispatch();
   const exp = useSelector((state) => state.experience.value).exp;
   const expDirty = useSelector((state) => state.experience.value).isDirty;
+  const { t } = useTranslation();
 
   const initial_level_up = 2;
 
@@ -68,9 +70,13 @@ const Experience = () => {
   return (
     <Box>
       {exp && exp > 0 && normalizedValue === 0 ? (
-        <AnimatedText>Taso: {level}</AnimatedText>
+        <AnimatedText>
+          {t('level')}: {level}
+        </AnimatedText>
       ) : (
-        <Text>Taso: {level}</Text>
+        <Text>
+          {t('level')}: {level}
+        </Text>
       )}
 
       <Meter value={normalizedValue} max={normalizedMax} />

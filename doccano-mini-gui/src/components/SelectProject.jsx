@@ -1,5 +1,7 @@
 import { Box, Heading, Select, Text } from 'grommet';
+import { Tumblr } from 'grommet-icons';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn, setProjectId } from '../features/data/stateslice';
 import { addToProject, getLabels, getProjects, login, logout } from '../util';
@@ -11,6 +13,7 @@ const SelectProject = () => {
   const [value, setValue] = useState({});
   const [nonMember, setNonMember] = useState(false);
   const projectId = useSelector((state) => state.state.value).projectId;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -69,7 +72,7 @@ const SelectProject = () => {
         pad="medium"
       >
         <Heading level={1} color="brand">
-          Valitse projekti
+          {t('chooseProject')}
         </Heading>
         <Select
           value={value}
@@ -78,18 +81,15 @@ const SelectProject = () => {
           labelKey="name"
         />
         <Box direction="row" gap="medium" pad="medium">
-          <SquareButton primary label="Valitse" onClick={handleConfirm} />
-          <SquareButton label="Peruuta" onClick={handleCancel} />
+          <SquareButton primary label={t('select')} onClick={handleConfirm} />
+          <SquareButton label={t('cancel')} onClick={handleCancel} />
         </Box>
         {nonMember && (
           <Box margin="auto" align="center">
-            <Text wordBreak="break-word">
-              Vaikuttaa, että et ole vielä kyseisen projektin jäsen. Haluatko
-              pyytää lisäystä?
-            </Text>
+            <Text wordBreak="break-word">{t('nonMemberInfo')}</Text>
             <Box direction="row" gap="medium" pad="medium">
-              <SquareButton primary label="Kyllä" onClick={requestProject} />
-              <SquareButton label="Ei" />
+              <SquareButton primary label={t('yes')} onClick={requestProject} />
+              <SquareButton label={t('no')} />
             </Box>
           </Box>
         )}

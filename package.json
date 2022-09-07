@@ -5,30 +5,32 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest combine.test.mjs",
-    "dev": "concurrently \"npx cross-env ADMIN_USER=admin ADMIN_PASS=pass USERS=user-tos1sala,user2-eikeksi? nodemon server.mjs\" \"cd doccano-mini-gui && npm run start\" ",
+    "dev": "concurrently \"npx cross-env ADMIN_USER=admin ADMIN_PASS=\\\"\\=\\$X42kPjGheVVF\\*Z\\\" USERS=user-oivasalaisuusikina,user2-eikeksi? nodemon server.mjs\" \"cd doccano-mini-gui && npm run start\" ",
+    "dev:server": "ADMIN_USER=admin ADMIN_PASS='=$X42kPjGheVVF*Z' USERS=user-oivasalaisuusikina,user2-eikeksi? nodemon server.mjs",
     "start": "node server.mjs",
     "build-front": "cd doccano-mini-gui && npm run build && cp -r build ../static",
     "setup": "npm i && cd doccano-mini-gui && npm i && cd .. && npm run build-front",
-    "docker-build": "docker build . -t doccano-gui --progress plain"
+    "setupbun": "bun install && cd doccano-mini-gui && bun install && cd .. && bun run build-front",
+    "docker-build": "docker build . -t doccano-gui --progress plain",
+    "check-updates": "npx npm-check -u"
   },
   "author": "",
   "license": "MIT",
   "type": "module",
   "dependencies": {
     "csvtojson": "^2.0.10",
-    "express": "^4.17.2",
+    "express": "^4.18.1",
     "express-session": "^1.17.2",
     "form-data": "^4.0.0",
-    "grommet-icons": "^4.7.0",
     "jsdom": "^19.0.0",
     "morgan": "^1.10.0",
-    "node-fetch": "^3.1.0",
+    "node-fetch": "^3.2.4",
     "set-cookie-parser": "^2.4.8",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0",
+    "concurrently": "^7.1.0",
     "jest": "^27.5.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   }
 }
