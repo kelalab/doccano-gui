@@ -17,5 +17,6 @@
   "yes": "Yes",
   "no": "No",
   "cancel": "Cancel",
-  "nonMemberInfo": "It seems you are not a member of that project. Would you like to send a request to join?"
+  "nonMemberInfo": "It seems you are not a member of that project. Would you like to send a request to join?",
+  "noinstructions": "no instructions available"
 }

@@ -17,5 +17,6 @@
   "yes": "Kyllä",
   "no": "Ei",
   "cancel": "Peruuta",
-  "nonMemberInfo": "Vaikuttaa, että et ole vielä kyseisen projektin jäsen. Haluatko pyytää lisäystä?"
+  "nonMemberInfo": "Vaikuttaa, että et ole vielä kyseisen projektin jäsen. Haluatko pyytää lisäystä?",
+  "noinstructions": "ei ohjetta"
 }

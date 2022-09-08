@@ -95,7 +95,7 @@ const Commands = ({
                       />
                     ) : undefined
                   }
-                  tip={labelTips[l.text] ? labelTips[l.text] : 'ei ohjetta'}
+                  tip={labelTips[l.text] ? labelTips[l.text] : t('noinstructions')}
                 />
               </Box>
             ))}
